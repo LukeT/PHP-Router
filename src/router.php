@@ -18,7 +18,7 @@ class Router
      *
      * @return array
      */
-    public static function parseConfig($array)
+    private static function parseConfig($array)
     {
         $data = array();
 
@@ -82,7 +82,7 @@ class Router
      *
      * @return string
      */
-    public static function getURI()
+    private static function getURI()
     {
         if(!empty($_SERVER['REQUEST_URI']))
         {
@@ -102,7 +102,7 @@ class Router
      * @param $currentURI
      * @return array
      */
-    public static function compareRoute($currentURI)
+    private static function compareRoute($currentURI)
     {
         $found_route = '';
         $dataMatches = array();
@@ -136,7 +136,7 @@ class Router
      *
      * @throws Exception
      */
-    public static function do404()
+    private static function do404()
     {
         throw new Exception("No route defined.");
     }
