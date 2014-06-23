@@ -142,6 +142,48 @@ class Router
     }
     
     /**
+     * Detect route handler, and push it to the required function
+     *
+     * @return function
+     */
+    private static function handleProcess($routeData)
+    {
+        if($route['route']['method'] == "controller")
+        {
+            self::doController($routeData);
+        }    
+        else if($route['route']['method'] == "function")
+        {
+            self::doFunction($routeData);
+        }
+        else
+        {
+            self::do404();
+        }
+    }
+
+   /**
+     * Call the controller defined in a route
+     *
+     * @throws Exception
+     */
+    private static function doController($routeData)
+    {
+        //TODO: Parse Controller
+    }
+
+    /**
+     * Call the function defined in a function
+     *
+     * @throws Exception
+     */
+    private static function doFunction($routeData)
+    {
+        //TODO: Parse Function
+    }
+
+
+    /**
      * Carry out the routing process
      */
     public static function run()
@@ -153,6 +195,10 @@ class Router
         if(empty($route['route']))
         {
             self::do404();
+        }
+        else
+        {
+            self::handleProcess($route);
         }
 
         //TODO: add handling code, parsing is done
