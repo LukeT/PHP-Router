@@ -165,7 +165,7 @@ class Router
    /**
      * Call the controller defined in a route
      *
-     * @throws Exception
+     * @return function
      */
     private static function doController($routeData)
     {
@@ -175,7 +175,7 @@ class Router
     /**
      * Call the function defined in a function
      *
-     * @throws Exception
+     * @return function
      */
     private static function doFunction($routeData)
     {
