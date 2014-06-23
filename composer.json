@@ -1,0 +1,15 @@
+{
+    "name": "luket/php-router",
+    "description": "PHP Routing Class",
+    "authors": [
+        {
+            "name": "Luke Thompson",
+            "email": "luke@thompsonuk.me"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "src/router.php"
+        ]
+    }
+}
