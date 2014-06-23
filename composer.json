@@ -11,5 +11,8 @@
         "files": [
             "src/router.php"
         ]
+    },
+    "require": {
+        "php": ">=5.4.0"
     }
 }
