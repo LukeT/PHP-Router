@@ -30,7 +30,7 @@ class Router
         else if ($array['function'])
         {
             $data['method'] = "function";
-            $data['action'] = $array['controller'];
+            $data['action'] = $array['function'];
         }
 
         isset($array['name']) ? $data['name'] = $array['name'] : '';
@@ -148,13 +148,13 @@ class Router
      */
     private static function handleProcess($routeData)
     {
-        if($route['route']['method'] == "controller")
+        if($routeData['route']['method'] == "controller")
         {
-            self::doController($routeData);
+            return self::doController($routeData);
         }    
-        else if($route['route']['method'] == "function")
+        else if($routeData['route']['method'] == "function")
         {
-            self::doFunction($routeData);
+            return self::doFunction($routeData);
         }
         else
         {
@@ -169,7 +169,33 @@ class Router
      */
     private static function doController($routeData)
     {
-        //TODO: Parse Controller
+        $route = explode("@", $routeData['route']['action']);
+        
+        if(count($route) != 2)
+        {
+            return false;
+        }
+  
+        if(class_exists($route[0]))
+        {
+            if(method_exists($route[0], $route[1]))
+            {
+
+                $helperClass = new $route[0]();
+                ob_start();
+                $o = call_user_func_array([$helperClass, $route[1]], $routeData['dataMatches']);
+                $oc = ob_get_contents();
+                ob_end_clean();
+
+                if(empty($o) || is_null($o) || !$o)
+                {
+                    return false;
+                }
+
+                return ["return" => $o, "echo" => $oc];
+
+            }
+        }
     }
 
     /**
@@ -179,7 +205,23 @@ class Router
      */
     private static function doFunction($routeData)
     {
-        //TODO: Parse Function
+
+        if(function_exists($routeData['route']['action']))
+        {
+
+            ob_start();
+            $o = call_user_func($routeData['route']['action'], $routeData['dataMatches']);
+            $oc = ob_get_contents();
+            ob_end_clean();
+
+            if(empty($o) || is_null($o) || !$o)
+            {
+                return false;
+            }
+
+            return ["return" => $o, "echo" => $oc];
+
+        }
     }
 
 
@@ -198,10 +240,15 @@ class Router
         }
         else
         {
-            self::handleProcess($route);
+            $proc = self::handleProcess($route);
         }
 
-        //TODO: add handling code, parsing is done
+        if(!$proc)
+        {
+            self::do404();
+        }
+
+        //TODO: Do somthing with the response + Implement real 404ings.
 
     }
 }
