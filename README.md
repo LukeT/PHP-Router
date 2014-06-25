@@ -37,7 +37,7 @@ Router::POST("/home", "controller" => "StaticController@handleHome");
 ```
 In the future I may support PUT, DELETE, UPDATE etc.  
  
-#####URL Paramaters
+##### URL Paramaters
 This also accepts URL paramates, so for instance http://example/enable/1001 would be:
 ```php
 Router::GET("/[:alpha]/[:int]", ["function" => "doStuff()"]);
@@ -51,10 +51,7 @@ Currently accepted:
 | [:string]     | Allows only letters (a-z, A-Z)                                    | ([a-zA-Z0-9-_]+)
 
 
-------------
-
-Make it work
---------------
+#####  Make it work
 
 Oh,Theres one thing you need to do to make it actually route.
 ```php
