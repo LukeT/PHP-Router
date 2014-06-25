@@ -210,14 +210,9 @@ class Router
         {
 
             ob_start();
-            $o = call_user_func($routeData['route']['action'], $routeData['dataMatches']);
+            $o = call_user_func_array($routeData['route']['action'], $routeData['dataMatches']);
             $oc = ob_get_contents();
             ob_end_clean();
-
-            if(empty($o) || is_null($o) || !$o)
-            {
-                return false;
-            }
 
             return ["return" => $o, "echo" => $oc];
 
@@ -248,7 +243,12 @@ class Router
             self::do404();
         }
 
-        //TODO: Do somthing with the response + Implement real 404ings.
+        echo $proc['echo'];
+        
+        if(!is_bool($proc['return']))
+        {
+            echo $proc['return'];
+        }
 
     }
 }
