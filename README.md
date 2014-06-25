@@ -61,7 +61,7 @@ Router::run();
 and thats all there is too it!
 
 
-### Licence
+### License
 
 
 The MIT License (MIT)
