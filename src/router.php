@@ -51,7 +51,7 @@ class Router
             $data['method'] = "controller";
             $data['action'] = $array['controller'];
         }
-        else if ($array['function'])
+        else if (isset($array['function']) && !empty($array['function']))
         {
             $data['method'] = "function";
             $data['action'] = $array['function'];
