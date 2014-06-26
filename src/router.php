@@ -163,7 +163,14 @@ class Router
      */
     private static function do404()
     {
-        throw new Exception("No route defined.");
+        if(isset(self::$errormsg) && !empty(self::$errormsg))
+        {
+            throw new Exception("No route defined.");
+        }
+        else
+        {
+            echo htmlentities(self::$errormsg);
+        }
     }
 
     /**
