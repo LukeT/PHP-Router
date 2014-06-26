@@ -28,6 +28,7 @@ class Router
 {
 
     protected static $routes;
+    protected static $errormsg;
 
     protected static $variables = [
         '[:string]' => '([a-zA-Z]+)',
@@ -164,10 +165,11 @@ class Router
     {
         throw new Exception("No route defined.");
     }
-    
+
     /**
      * Detect route handler, and push it to the required function
      *
+     * @param $routeData
      * @return function
      */
     private static function handleProcess($routeData)
@@ -186,10 +188,11 @@ class Router
         }
     }
 
-   /**
+    /**
      * Call the controller defined in a route
      *
-     * @return function
+     * @param $routeData
+     * @return array|bool
      */
     private static function doController($routeData)
     {
@@ -225,7 +228,8 @@ class Router
     /**
      * Call the function defined in a function
      *
-     * @return function
+     * @param $routeData
+     * @return array
      */
     private static function doFunction($routeData)
     {
@@ -243,6 +247,18 @@ class Router
         }
     }
 
+    /**
+     * Set the error message
+     *
+     * @param $string
+     */
+    public function unknown($string)
+    {
+        if(is_string($string))
+        {
+            self::$errormsg = $string;
+        }
+    }
 
     /**
      * Carry out the routing process
