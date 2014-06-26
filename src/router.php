@@ -260,7 +260,7 @@ class Router
      *
      * @param $string
      */
-    public function unknown($string)
+    public static function unknown($string)
     {
         if(is_string($string))
         {
