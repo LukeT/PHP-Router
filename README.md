@@ -13,7 +13,7 @@ The first way you can install is via including src/routes.php, although I don't 
 The second way is via composer:
 ```sh
 composer require luket/php-router dev-master
-computer update
+composer update
 ```
 ### Usage
 Currently, use is fairly limited, but it gets the job done.
