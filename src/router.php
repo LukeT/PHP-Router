@@ -165,12 +165,13 @@ class Router
     {
         if(isset(self::$errormsg) && !empty(self::$errormsg))
         {
-            throw new Exception("No route defined.");
+            echo htmlentities(self::$errormsg);
         }
         else
         {
-            echo htmlentities(self::$errormsg);
+            throw new Exception("No route defined.");
         }
+        die();
     }
 
     /**
