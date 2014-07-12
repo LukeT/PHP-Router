@@ -133,7 +133,10 @@ class Router
         $dataMatches = array();
 
         if (isset(self::$routes[$currentURI]) && is_array(self::$routes[$currentURI])) {
-            $found_route = self::$routes[$currentURI];
+            if(self::$routes[$currentURI]['type'] == $_SERVER['REQUEST_METHOD']) 
+            {
+                $found_route = self::$routes[$currentURI];
+            }
         }
         else if (is_array(self::$routes))
         {
@@ -141,14 +144,16 @@ class Router
                 $regexURI = '|^/?' . strtr($uri, self::$variables) .'/?$|';
 
                 if (preg_match($regexURI, $currentURI, $variables)) {
-                    $found_route = self::$routes[$uri];
-                    $dataMatches = $variables;
+                    if(self::$routes[$currentURI]['type'] == $_SERVER['REQUEST_METHOD']) 
+                        $found_route = self::$routes[$uri];
+                        $dataMatches = $variables;
 
-                    if($dataMatches[0] == $currentURI)
-                    {
-                        array_splice($dataMatches, 0, 1);
+                        if($dataMatches[0] == $currentURI)
+                        {
+                            array_splice($dataMatches, 0, 1);
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
