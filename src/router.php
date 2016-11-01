@@ -278,7 +278,7 @@ class Router
      */
     public static function run()
     {
-        $uri = self::getURI();;
+        $uri = self::getURI();
 
         $route = self::compareRoute($uri);
 
